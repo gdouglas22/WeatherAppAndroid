@@ -6,6 +6,11 @@ android {
     namespace = "com.example.weatherapp"
     compileSdk = 35
 
+    buildFeatures {
+        viewBinding = false
+        dataBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.example.weatherapp"
         minSdk = 29
@@ -40,4 +45,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation(libs.material.v180)
+    implementation(libs.squareup.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.graphview)
+    implementation(libs.core)
+    implementation(libs.viewpager2)
 }

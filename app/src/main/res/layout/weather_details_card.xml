@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/weatherDetailsCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <!-- Wind -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <ImageView
+                    android:src="@drawable/ic_launcher_background"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp" />
+                <TextView
+                    android:text="Wind: 5 m/s"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+            </LinearLayout>
+
+            <!-- Humidity -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <ImageView
+                    android:src="@drawable/ic_launcher_background"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp" />
+                <TextView
+                    android:text="Humidity: 60%"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <!-- Rain -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <ImageView
+                    android:src="@drawable/ic_launcher_background"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp" />
+                <TextView
+                    android:text="Rain: 20%"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>
