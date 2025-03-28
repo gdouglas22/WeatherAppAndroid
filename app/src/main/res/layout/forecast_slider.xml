@@ -11,17 +11,22 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         app:tabMode="fixed"
-        app:tabIndicatorColor="@android:color/holo_blue_light"
-        app:tabSelectedTextColor="@android:color/white"
-        app:tabTextColor="@android:color/darker_gray" />
+        app:tabGravity="fill"
+        app:tabTextColor="@color/black"
+        app:tabSelectedTextColor="@color/light_gray"
+        app:tabIndicator="@drawable/tab_indicator_dot"
+        app:tabIndicatorColor="@android:color/transparent"
+        app:tabIndicatorGravity="bottom" />
+
 
     <!-- ViewPager2 for swiping between the forecast days -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/forecastViewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
+        android:padding="16dp" />
 </LinearLayout>
 
 

@@ -6,43 +6,53 @@
     <data>
         <variable
             name="weatherData"
-            type="com.example.api.WeatherResponse" />
+            type="com.example.ui.viewmodel.weather.WeatherData" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".WeatherFragment">
+        android:layout_height="match_parent">
 
-        <!-- Welcome message -->
-        <include layout="@layout/welcome_message"
-            android:id="@+id/welcomeMessage"
+        <!-- Основной контент -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/contentLayout"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".WeatherFragment">
+
+
+            <!-- Weather Info Card -->
+            <include
+                layout="@layout/weather_card"
+                android:id="@+id/weatherCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:weatherData="@{weatherData}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Weather details -->
+            <include
+                layout="@layout/weather_details_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:weatherData="@{weatherData}"
+                app:layout_constraintTop_toBottomOf="@id/weatherCard"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Индикатор загрузки — ПОВЕРХ всего -->
+        <ProgressBar
+            android:id="@+id/loadingIndicator"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <!-- Weather Info Card -->
-        <include layout="@layout/weather_card"
-            android:id="@+id/weatherCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/welcomeMessage"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <!-- Weather data (Wind, Humidity, Rain) -->
-        <include layout="@layout/weather_details_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/weatherCard"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+    </FrameLayout>
 </layout>
+
 
 
 

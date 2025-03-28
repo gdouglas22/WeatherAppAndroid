@@ -7,8 +7,8 @@ android {
     compileSdk = 35
 
     buildFeatures {
-        viewBinding = false
         dataBinding = true
+        viewBinding = rootProject.extra["viewBindingEnabled"] as Boolean
     }
 
     defaultConfig {
@@ -52,4 +52,5 @@ dependencies {
     implementation(libs.graphview)
     implementation(libs.core)
     implementation(libs.viewpager2)
+    implementation(libs.play.services.location)
 }

@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <data>
+        <variable
+            name="weatherData"
+            type="com.example.ui.viewmodel.weather.WeatherData" />
+    </data>
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:padding="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     android:gravity="center">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/weatherDetailsCard"
+        android:id="@+id/weatherCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="8dp"
-        app:strokeColor="@color/black"
-        app:strokeWidth="1dp">
+        style="@style/Widget.WeatherApp.Card">
 
         <LinearLayout
+            android:baselineAligned="false"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,17 +31,14 @@
 
             <!-- Wind -->
             <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Widget.WeatherApp.LinearCardStyle"
                 android:layout_weight="1">
                 <ImageView
-                    android:src="@drawable/ic_launcher_background"
+                    android:src="@drawable/ic_wind"
                     android:layout_width="24dp"
                     android:layout_height="24dp" />
                 <TextView
-                    android:text="Wind: 5 m/s"
+                    android:text="@{`Wind: ` + weatherData.windSpeed}"
                     android:textSize="12sp"
                     android:gravity="center"
                     android:layout_marginTop="8dp"
@@ -44,17 +48,14 @@
 
             <!-- Humidity -->
             <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Widget.WeatherApp.LinearCardStyle"
                 android:layout_weight="1">
                 <ImageView
-                    android:src="@drawable/ic_launcher_background"
+                    android:src="@drawable/ic_humidity"
                     android:layout_width="24dp"
                     android:layout_height="24dp" />
                 <TextView
-                    android:text="Humidity: 60%"
+                    android:text="@{`Humidity: ` + weatherData.humidity}"
                     android:textSize="12sp"
                     android:gravity="center"
                     android:layout_marginTop="8dp"
@@ -64,17 +65,14 @@
 
             <!-- Rain -->
             <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Widget.WeatherApp.LinearCardStyle"
                 android:layout_weight="1">
                 <ImageView
-                    android:src="@drawable/ic_launcher_background"
+                    android:src="@drawable/ic_rain"
                     android:layout_width="24dp"
                     android:layout_height="24dp" />
                 <TextView
-                    android:text="Rain: 20%"
+                    android:text="@{`Rain: ` + weatherData.rain}"
                     android:textSize="12sp"
                     android:gravity="center"
                     android:layout_marginTop="8dp"
@@ -86,3 +84,4 @@
     </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>
+</layout>
