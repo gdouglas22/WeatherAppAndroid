@@ -1,4 +1,4 @@
-package com.example.weatherapp;
+package com.example.weatherapp.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +20,7 @@ import com.example.ui.viewmodel.common.UiState;
 import com.example.ui.viewmodel.forecast.ForecastData;
 import com.example.ui.viewmodel.forecast.ForecastViewModel;
 import com.example.ui.viewmodel.weather.WeatherViewModel;
+import com.example.weatherapp.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -110,17 +111,21 @@ public class ForecastFragment extends Fragment {
         updateGraphForPage(viewPager2.getCurrentItem());
     }
 
+
     private void handleUiState(UiState state) {
         switch (state) {
             case LOADING:
                 progressBar.setVisibility(View.VISIBLE);
+                graphView.setVisibility(View.GONE); // скрываем граф
                 break;
             case SUCCESS:
+                progressBar.setVisibility(View.GONE);
+                graphView.setVisibility(View.VISIBLE); // показываем граф после загрузки
+                break;
             case ERROR:
                 progressBar.setVisibility(View.GONE);
-                if (state == UiState.ERROR) {
-                    Toast.makeText(getContext(), "Ошибка загрузки прогноза", Toast.LENGTH_SHORT).show();
-                }
+                graphView.setVisibility(View.GONE); // не показываем граф при ошибке
+                Toast.makeText(getContext(), "Ошибка загрузки прогноза", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

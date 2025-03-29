@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.example.ui.graph.CustomGraphView;
+
 import com.example.weatherapp.R;
 import com.example.ui.viewmodel.forecast.ForecastData;
 import com.jjoe64.graphview.GridLabelRenderer;
@@ -33,21 +33,48 @@ public class TemperatureGraphManager {
         this.context = context;
     }
 
+    public static int adjustAlpha(int color, float factor) {
+        int alpha = Math.round(Color.alpha(color) * factor);
+        return Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color));
+    }
     public void drawGraph(List<ForecastData> forecastList) {
         graphView.removeAllSeries();
         if (forecastList == null || forecastList.isEmpty()) return;
 
-        DataPoint[] points = new DataPoint[forecastList.size()];
-        for (int i = 0; i < forecastList.size(); i++) {
-            double temp = parseTemperature(forecastList.get(i).getTemperature());
-            points[i] = new DataPoint(i, temp);
+        List<DataPoint> smoothedPoints = new ArrayList<>();
+
+        for (int i = 0; i < forecastList.size() - 1; i++) {
+            double x1 = i;
+            double y1 = parseTemperature(forecastList.get(i).getTemperature());
+            double x2 = i + 1;
+            double y2 = parseTemperature(forecastList.get(i + 1).getTemperature());
+
+            smoothedPoints.add(new DataPoint(x1, y1));
+
+            // Добавим 3 промежуточные точки между каждой парой
+            for (int j = 1; j <= 3; j++) {
+                double t = j / 4.0;
+                double x = x1 + t;
+                double y = (1 - t) * y1 + t * y2; // линейная интерполяция
+                smoothedPoints.add(new DataPoint(x, y));
+            }
         }
 
+// Добавляем последнюю точку
+        double lastX = forecastList.size() - 1;
+        double lastY = parseTemperature(forecastList.get(forecastList.size() - 1).getTemperature());
+        smoothedPoints.add(new DataPoint(lastX, lastY));
+
+        DataPoint[] points = smoothedPoints.toArray(new DataPoint[0]);
+
+        int lineColor = context.getColor(R.color.text_primary);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
+        series.setColor(lineColor);
+        series.setBackgroundColor(adjustAlpha(lineColor, 0.2f));
         series.setColor(Color.parseColor("#222222"));
         series.setThickness(5);
         series.setDrawBackground(true);
-        series.setBackgroundColor(Color.parseColor("#11CCCCCC"));
+        series.setBackgroundColor(Color.parseColor("#66CCCCCC"));
         series.setDrawDataPoints(false);
 
         series.setOnDataPointTapListener((s, dataPoint) -> {
@@ -72,9 +99,8 @@ public class TemperatureGraphManager {
         graphView.getViewport().setYAxisBoundsManual(false);
         graphView.getViewport().setXAxisBoundsManual(true);
         graphView.getViewport().setMinX(0);
-        graphView.getViewport().setMaxX(points.length - 1);
+        graphView.getViewport().setMaxX(forecastList.size() - 1);
         graphView.setPadding(0, 0, 0, 0);
-        graphView.setBackgroundColor(Color.TRANSPARENT);
     }
 
     private void showTooltip(float rawX, float rawY, DataPoint point, ForecastData data) {
@@ -86,8 +112,8 @@ public class TemperatureGraphManager {
         View popupView = LayoutInflater.from(context).inflate(R.layout.tooltip_view, null);
         TextView timeText = popupView.findViewById(R.id.tooltip_time);
         TextView tempText = popupView.findViewById(R.id.tooltip_temp);
-        timeText.setText(data.getTime());
-        tempText.setText(data.getTemperature());
+        timeText.setText(com.example.weatherapp.util.DateUtils.formatDate(data.getTime()));
+        tempText.setText(com.example.weatherapp.util.DateUtils.formatTemperature(data.getTemperature()));
 
         List<com.jjoe64.graphview.series.Series<?>> toRemove = new ArrayList<>();
         for (com.jjoe64.graphview.series.Series<?> s : graphView.getSeries()) {
@@ -101,7 +127,8 @@ public class TemperatureGraphManager {
         dot.setDrawDataPoints(true);
         dot.setDataPointsRadius(20f);
         dot.setThickness(5);
-        dot.setColor(Color.BLACK);
+        int lineColor = context.getColor(R.color.text_primary);
+        dot.setColor(lineColor);
 
         graphView.post(() -> {
             for (com.jjoe64.graphview.series.Series<?> s : toRemove) {

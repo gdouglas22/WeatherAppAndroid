@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.conf.WeatherConfig;
 import com.example.data.api.ForecastResponse;
 import com.example.data.repository.WeatherRepository;
 import com.example.ui.viewmodel.common.UiState;
@@ -22,6 +23,13 @@ public class ForecastViewModel extends ViewModel {
     private final MutableLiveData<List<ForecastData>> forecastLiveData = new MutableLiveData<>();
     private final MutableLiveData<UiState> uiStateLiveData = new MutableLiveData<>();
     private final WeatherRepository repository = new WeatherRepository();
+
+    public void prefetchForecastData() {
+        String city = WeatherConfig.city;
+        if (city != null && !city.isEmpty()) {
+            loadForecast(city);
+        }
+    }
 
     public LiveData<List<ForecastData>> getForecastLiveData() {
         return forecastLiveData;

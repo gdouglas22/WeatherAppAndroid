@@ -1,4 +1,4 @@
-package com.example.weatherapp;
+package com.example.weatherapp.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.data.api.WeatherResponse;
 import com.example.ui.viewmodel.common.UiState;
 import com.example.ui.viewmodel.weather.WeatherData;
 import com.example.ui.viewmodel.weather.WeatherViewModel;
@@ -39,6 +38,7 @@ public class WeatherFragment extends Fragment {
 
         return binding.getRoot();
     }
+
 
     private void observeViewModel() {
         viewModel.getWeatherLiveData().observe(getViewLifecycleOwner(), this::updateUIWithWeather);

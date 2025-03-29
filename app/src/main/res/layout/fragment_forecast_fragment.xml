@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".ForecastFragment">
+    android:layout_height="match_parent"
+    tools:context=".fragments.ForecastFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-    <include
-        layout="@layout/forecast_slider"
-        android:id="@+id/forecastSlider"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/forecastSlider"
+            layout="@layout/forecast_slider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
         <com.example.ui.graph.CustomGraphView
             android:id="@+id/temperatureGraph"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:minHeight="500dp"
+            app:layout_constraintTop_toBottomOf="@id/forecastSlider"
             android:background="@android:color/transparent"
-            />
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
         android:id="@+id/forecastLoadingIndicator"

@@ -1,6 +1,9 @@
 package com.example.ui.viewmodel.weather;
 
+import android.app.Application;
+
 import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -8,19 +11,24 @@ import androidx.lifecycle.ViewModel;
 import com.example.data.api.WeatherResponse;
 import com.example.data.repository.WeatherRepository;
 import com.example.ui.viewmodel.common.UiState;
-import com.example.ui.viewmodel.weather.WeatherData;
+import com.example.util.PrefsHelper;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WeatherViewModel extends ViewModel {
+public class WeatherViewModel extends AndroidViewModel {
 
     private final MutableLiveData<String> cityLiveData = new MutableLiveData<>();
     private final MutableLiveData<WeatherData> weatherLiveData = new MutableLiveData<>();
     private final MutableLiveData<UiState> uiStateLiveData = new MutableLiveData<>();
 
     private final WeatherRepository repository = new WeatherRepository();
+
+    public WeatherViewModel(@NonNull Application application) {
+        super(application);
+    }
 
     public LiveData<String> getCityLiveData() {
         return cityLiveData;
@@ -38,6 +46,14 @@ public class WeatherViewModel extends ViewModel {
         cityLiveData.setValue(city);
         fetchWeatherData(city);
     }
+
+    public void prefetchWeatherData() {
+        String savedCity = PrefsHelper.getSavedCity(getApplication());
+        if (savedCity != null && !savedCity.isEmpty()) {
+            setCity(savedCity);
+        }
+    }
+
 
     private void fetchWeatherData(String city) {
         uiStateLiveData.setValue(UiState.LOADING);

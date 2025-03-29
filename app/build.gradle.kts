@@ -53,4 +53,14 @@ dependencies {
     implementation(libs.core)
     implementation(libs.viewpager2)
     implementation(libs.play.services.location)
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.runtime.ktx.v240alpha03)
+
+    val lifecycle_version = "2.8.7"
+    val arch_version = "2.2.0"
+
+    implementation(libs.lifecycle.viewmodel.ktx)
+    testImplementation (libs.lifecycle.runtime.testing)
+    implementation(libs.lifecycle.livedata)
+    implementation(libs.lifecycle.runtime)
 }

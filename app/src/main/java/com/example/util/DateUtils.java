@@ -12,7 +12,25 @@ public class DateUtils {
         return sdf.format(date);
     }
 
+    public static String formatDate(String timeString) {
+        try {
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
+            SimpleDateFormat outputFormat = new SimpleDateFormat("d MMM HH:mm", Locale.ENGLISH);
+            Date date = inputFormat.parse(timeString);
+            return outputFormat.format(date);
+        } catch (Exception e) {
+            return timeString;
+        }
+    }
+
+
     public static String getCurrentFormattedDate() {
         return formatDate(System.currentTimeMillis());
     }
+
+    public static String formatTemperature(String tempString) {
+        String clean = tempString.replace("°", "").replace("C", "").trim();
+        return clean + "°C";
+    }
+
 }
