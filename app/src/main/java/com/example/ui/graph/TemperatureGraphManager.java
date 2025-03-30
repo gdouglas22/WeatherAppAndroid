@@ -13,6 +13,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 
+import com.example.util.DateUtils;
 import com.example.weatherapp.R;
 import com.example.ui.viewmodel.forecast.ForecastData;
 import com.jjoe64.graphview.GridLabelRenderer;
@@ -110,8 +111,8 @@ public class TemperatureGraphManager {
         View popupView = LayoutInflater.from(context).inflate(R.layout.tooltip_view, null);
         TextView timeText = popupView.findViewById(R.id.tooltip_time);
         TextView tempText = popupView.findViewById(R.id.tooltip_temp);
-        timeText.setText(com.example.weatherapp.util.DateUtils.formatDate(data.getTime()));
-        tempText.setText(com.example.weatherapp.util.DateUtils.formatTemperature(data.getTemperature()));
+        timeText.setText(DateUtils.formatDate(data.getTime()));
+        tempText.setText(DateUtils.formatTemperature(data.getTemperature()));
 
         List<com.jjoe64.graphview.series.Series<?>> toRemove = new ArrayList<>();
         for (com.jjoe64.graphview.series.Series<?> s : graphView.getSeries()) {
