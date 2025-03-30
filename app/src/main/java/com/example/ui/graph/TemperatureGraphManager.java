@@ -45,7 +45,7 @@ public class TemperatureGraphManager {
         List<DataPoint> smoothedPoints = new ArrayList<>();
 
         for (int i = 0; i < forecastList.size() - 1; i++) {
-            double x1 = i;
+            double x1 = i;//gfgf
             double y1 = parseTemperature(forecastList.get(i).getTemperature());
             double x2 = i + 1;
             double y2 = parseTemperature(forecastList.get(i + 1).getTemperature());
