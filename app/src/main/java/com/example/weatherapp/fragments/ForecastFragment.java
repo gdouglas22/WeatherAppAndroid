@@ -116,15 +116,15 @@ public class ForecastFragment extends Fragment {
         switch (state) {
             case LOADING:
                 progressBar.setVisibility(View.VISIBLE);
-                graphView.setVisibility(View.GONE); // скрываем граф
+                graphView.setVisibility(View.GONE);
                 break;
             case SUCCESS:
                 progressBar.setVisibility(View.GONE);
-                graphView.setVisibility(View.VISIBLE); // показываем граф после загрузки
+                graphView.setVisibility(View.VISIBLE);
                 break;
             case ERROR:
                 progressBar.setVisibility(View.GONE);
-                graphView.setVisibility(View.GONE); // не показываем граф при ошибке
+                graphView.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Ошибка загрузки прогноза", Toast.LENGTH_SHORT).show();
                 break;
         }

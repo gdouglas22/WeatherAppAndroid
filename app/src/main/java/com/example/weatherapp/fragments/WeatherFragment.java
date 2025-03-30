@@ -30,7 +30,6 @@ public class WeatherFragment extends Fragment {
 
         observeViewModel();
 
-        // Стартовая загрузка по сохранённому городу
         String savedCity = PrefsHelper.getSavedCity(requireContext());
         if (savedCity != null && !savedCity.isEmpty()) {
             viewModel.setCity(savedCity);

@@ -26,8 +26,8 @@ import android.util.Log;
 
 public class ForecastViewPagerAdapter extends RecyclerView.Adapter<ForecastViewPagerAdapter.ForecastViewHolder> {
 
-    private Context ctx;
-    private List<String> data = new ArrayList<>(Arrays.asList("Today", "Tomorrow", "Next 4 Days"));
+    private final Context ctx;
+    private final List<String> data = new ArrayList<>(Arrays.asList("Today", "Tomorrow", "Next 4 Days"));
 
     private List<ForecastData> fullForecastData = new ArrayList<>();
 
@@ -44,7 +44,6 @@ public class ForecastViewPagerAdapter extends RecyclerView.Adapter<ForecastViewP
     @NonNull
     @Override
     public ForecastViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Используем разметку для каждого слайда
         View view = LayoutInflater.from(ctx).inflate(R.layout.forecast_slider_item, parent, false);
         return new ForecastViewHolder(view);
     }
@@ -63,6 +62,7 @@ public class ForecastViewPagerAdapter extends RecyclerView.Adapter<ForecastViewP
             Date firstDate = apiFormat.parse(fullForecastData.get(0).getTime());
 
             Calendar calendar = Calendar.getInstance();
+            assert firstDate != null;
             calendar.setTime(firstDate);
             calendar.set(Calendar.HOUR_OF_DAY, 0);
             calendar.set(Calendar.MINUTE, 0);
@@ -107,23 +107,21 @@ public class ForecastViewPagerAdapter extends RecyclerView.Adapter<ForecastViewP
             case 1:
                 return tomorrow.subList(0, Math.min(tomorrow.size(), 4));
             case 2:
-                // Собираем только по одному элементу для каждого дня, начиная с "послезавтра"
                 List<ForecastData> result = new ArrayList<>();
                 Set<String> addedDates = new HashSet<>();
 
                 Calendar calendar = Calendar.getInstance();
                 SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
-                // "Сегодня"
                 String todayDate = dayFormat.format(calendar.getTime());
 
                 for (ForecastData item : fullForecastData) {
                     try {
                         Date parsed = apiFormat.parse(item.getTime());
+                        assert parsed != null;
                         String dateStr = dayFormat.format(parsed);
                         String timeStr = item.getTime().split(" ")[1];
 
-                        // Пропускаем "сегодня" и ищем только 00:00
                         if (!dateStr.equals(todayDate) && timeStr.equals("00:00:00") && !addedDates.contains(dateStr)) {
                             result.add(item);
                             addedDates.add(dateStr);

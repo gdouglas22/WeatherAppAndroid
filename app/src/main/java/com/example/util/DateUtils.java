@@ -1,4 +1,4 @@
-package com.example.weatherapp.util;
+package com.example.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,6 +17,7 @@ public class DateUtils {
             SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
             SimpleDateFormat outputFormat = new SimpleDateFormat("d MMM HH:mm", Locale.ENGLISH);
             Date date = inputFormat.parse(timeString);
+            assert date != null;
             return outputFormat.format(date);
         } catch (Exception e) {
             return timeString;

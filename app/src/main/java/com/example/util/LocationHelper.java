@@ -41,12 +41,13 @@ public class LocationHelper {
                 Geocoder geocoder = new Geocoder(context, Locale.getDefault());
                 try {
                     List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                    assert addresses != null;
                     if (!addresses.isEmpty()) {
                         String cityName = addresses.get(0).getLocality();
                         if (cityName != null && !cityName.isEmpty()) {
                             WeatherConfig.city = cityName;
                             Log.d("LocationHelper", "City resolved: " + cityName);
-                            callback.onCityResolved(cityName); // 🔔 Уведомляем
+                            callback.onCityResolved(cityName);
                         }
                     }
                 } catch (IOException e) {

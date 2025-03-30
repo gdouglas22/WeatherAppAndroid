@@ -29,7 +29,6 @@
             android:layout_height="wrap_content"
             android:gravity="center">
 
-            <!-- Wind -->
             <LinearLayout
                 style="@style/Widget.WeatherApp.LinearCardStyle"
                 android:layout_weight="1">
@@ -46,7 +45,6 @@
                     android:layout_width="wrap_content"/>
             </LinearLayout>
 
-            <!-- Humidity -->
             <LinearLayout
                 style="@style/Widget.WeatherApp.LinearCardStyle"
                 android:layout_weight="1">
@@ -63,7 +61,6 @@
                     android:layout_height="wrap_content"/>
             </LinearLayout>
 
-            <!-- Rain -->
             <LinearLayout
                 style="@style/Widget.WeatherApp.LinearCardStyle"
                 android:layout_weight="1">

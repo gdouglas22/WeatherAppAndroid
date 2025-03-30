@@ -10,7 +10,7 @@ public class WeatherResponse {
     private String name;
     private long dt;
     private List<Weather> weather;
-    private Map<String, Float> rain; // дождь
+    private Map<String, Float> rain;
 
     public Main getMain() {
         return main;

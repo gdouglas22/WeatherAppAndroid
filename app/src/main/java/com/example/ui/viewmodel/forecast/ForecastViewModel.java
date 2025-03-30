@@ -61,8 +61,6 @@ public class ForecastViewModel extends ViewModel {
             }
         });
     }
-
-    // Пригодится позже
     public List<ForecastData> getCurrentForecast() {
         return forecastLiveData.getValue();
     }

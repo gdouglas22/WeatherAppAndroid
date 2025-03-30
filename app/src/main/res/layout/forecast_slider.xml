@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- TabLayout for switching between "Today", "Tomorrow", and "Next 4 Days" -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
@@ -21,7 +20,6 @@
         app:tabIndicatorGravity="bottom" />
 
 
-    <!-- ViewPager2 for swiping between the forecast days -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/forecastViewPager"
         android:layout_width="match_parent"

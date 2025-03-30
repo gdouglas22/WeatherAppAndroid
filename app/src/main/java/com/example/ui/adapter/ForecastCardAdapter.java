@@ -21,9 +21,9 @@ import java.util.Date;
 
 public class ForecastCardAdapter extends RecyclerView.Adapter<ForecastCardAdapter.ForecastCardViewHolder> {
 
-    private List<ForecastData> data;
+    private final List<ForecastData> data;
 
-    private int tabPosition;
+    private final int tabPosition;
 
     public ForecastCardAdapter(List<ForecastData> data, int tabPosition) {
         this.data = data;
@@ -69,13 +69,15 @@ public class ForecastCardAdapter extends RecyclerView.Adapter<ForecastCardAdapte
         try {
             SimpleDateFormat fromFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 
-            if (tabPosition == 2) { // "Next 4 Days"
-                SimpleDateFormat toFormat = new SimpleDateFormat("EEE", Locale.US); // например: Mon, Tue...
+            if (tabPosition == 2) {
+                SimpleDateFormat toFormat = new SimpleDateFormat("EEE", Locale.US);
                 Date parsed = fromFormat.parse(item.getTime());
+                assert parsed != null;
                 displayTime = toFormat.format(parsed);
             } else {
                 SimpleDateFormat toFormat = new SimpleDateFormat("HH:mm", Locale.US);
                 Date parsed = fromFormat.parse(item.getTime());
+                assert parsed != null;
                 displayTime = toFormat.format(parsed);
             }
 
@@ -83,8 +85,8 @@ public class ForecastCardAdapter extends RecyclerView.Adapter<ForecastCardAdapte
             displayTime = "N/A";
         }
 
-        holder.textView1.setText(displayTime);      // либо HH:mm, либо день недели
-        holder.textView2.setText(temperature);       // температура
+        holder.textView1.setText(displayTime);
+        holder.textView2.setText(temperature);
         holder.imageView.setImageResource(getIconResForDescription(item.getDescription()));
     }
 

@@ -14,13 +14,11 @@ public class UserInfoUtils {
 
         for (Account account : accounts) {
             if (Patterns.EMAIL_ADDRESS.matcher(account.name).matches()) {
-                // Например: "ivan.petrov@gmail.com" → "Ivan"
                 String name = account.name.split("@")[0];
                 return capitalize(name);
             }
         }
 
-        // fallback
         return "User";
     }
 

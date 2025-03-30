@@ -51,16 +51,14 @@ public class TemperatureGraphManager {
 
             smoothedPoints.add(new DataPoint(x1, y1));
 
-            // Добавим 3 промежуточные точки между каждой парой
             for (int j = 1; j <= 3; j++) {
                 double t = j / 4.0;
                 double x = x1 + t;
-                double y = (1 - t) * y1 + t * y2; // линейная интерполяция
+                double y = (1 - t) * y1 + t * y2;
                 smoothedPoints.add(new DataPoint(x, y));
             }
         }
 
-// Добавляем последнюю точку
         double lastX = forecastList.size() - 1;
         double lastY = parseTemperature(forecastList.get(forecastList.size() - 1).getTemperature());
         smoothedPoints.add(new DataPoint(lastX, lastY));

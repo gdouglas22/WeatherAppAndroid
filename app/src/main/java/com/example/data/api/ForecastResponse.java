@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class ForecastResponse {
-
-    // Исправлено: теперь list содержит ForecastDataFromResponse, а не ForecastData
     private List<ForecastDataFromResponse> list;
 
     public List<ForecastDataFromResponse> getList() {
@@ -20,7 +18,6 @@ public class ForecastResponse {
         this.list = list;
     }
 
-    // Конвертация в ForecastData
     public List<com.example.ui.viewmodel.forecast.ForecastData> toForecastDataList() {
         List<ForecastData> forecastDataList = new ArrayList<>();
         if (list != null) {
